@@ -48,10 +48,17 @@ const reviews: ({
         description: 'Great hosts, location was a bit further than said',
     },
 ]
+
+function makeMultiple(value: number) : string {
+    if (value > 1 || value == 0 ) {
+        return 's'
+    } else return ''
+}
+
 //review function
 function showReviewTotal (value : number, reviewer: string, isLoyalty: LoyaltyUser) {
     const iconDisplay = LoyaltyUser.GOLD_USER ? "⭐" : ""
-    reviewTotalDisplay.innerHTML = 'review total ' + value.toString() + '| last review by ' + reviewer + " " + iconDisplay
+    reviewTotalDisplay.innerHTML = value.toString() + ' Review' + makeMultiple(value) + '| last review by ' + reviewer + " " + iconDisplay
 }
 
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
