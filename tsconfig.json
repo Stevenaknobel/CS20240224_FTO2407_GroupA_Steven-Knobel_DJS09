@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {    
+    "module": "es6",
+  "rootDir": "./",
+  "outDir": "./dist"
+},
+
+"include": [
+  "index.ts"                          // Include your entry TypeScript file
+],
+"exclude": [
+  "node_modules"                          // Exclude 'node_modules' folder from the compilation
+]
+}

@@ -1,6 +1,9 @@
+const path = require('path')
+
 module.exports = {
   "output": {
-    "filename": "[name].pack.js"
+    "filename": "[name].pack.js",
+    path: path.resolve(__dirname, 'dist'), // Output the file into the 'dist' folder
   },
   "entry": {
     "index": "./index"
