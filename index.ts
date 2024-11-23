@@ -70,23 +70,25 @@ const you: {
     stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow']
 }
 
-//Type alias
-type Price = 45|30|25
-type Country = 'Colombia' | 'Poland' | 'United Kingdom'
-//array of properties with info
-const properties: {
+interface Property {
     image: string;
     title: string;
     price: Price;
     location: {
         firstLine: string;
         city: string;
-        code: number;
-        country: Country;
-    };
-    contact: [number, string];
+        code: number | string;
+        country: Country
+    }
+    contact: [ number, string];
     isAvailable: boolean;
-}[] = [
+}
+
+//Type alias
+type Price = 45|30|25
+type Country = 'Colombia' | 'Poland' | 'United Kingdom'
+//array of properties with info
+const properties: Property[] = [
     {
         image: 'images/colombia-property.jpg',
         title: 'Colombian Shack',
@@ -120,7 +122,7 @@ const properties: {
         location: {
             firstLine: 'flat 15',
             city: 'London',
-            code: 35433,
+            code: "SW4 5XW",
             country: 'United Kingdom',
         },
         contact: [+34829374892553, 'andyluger@aol.com'],
@@ -194,3 +196,35 @@ button.addEventListener('click', () => addReviews(reviews))
 //footer
 let currentLocation: [string, string, number] = ['South Africa', '11:35', 25]
 footer.innerHTML = currentLocation[0] + ' | ' + currentLocation[1] + ' | ' + currentLocation[2] + '°'
+
+// Classes
+class MainProperty {
+    src: string
+    title: string
+    reviews: Review[]
+    constructor(src: string, title: string, reviews: Review[]) {
+        this.src = src
+        this.title = title
+        this.reviews = reviews
+    }
+}
+
+let yourMainProperty = new MainProperty(
+    'images/italian-property.jpg', 
+    'Italian House',
+    [{
+        name: 'Olive',
+        stars: 5,
+        loyaltyUser: LoyaltyUser.GOLD_USER,
+        date: '12-04-2021'
+    }] )
+    document.addEventListener('DOMContentLoaded', () => {
+        const mainImageContainer = document.querySelector('.main-image')
+        if (mainImageContainer) {
+            const image = document.createElement('img');
+            image.setAttribute('src', yourMainProperty.src);
+            mainImageContainer.appendChild(image);
+        } else {
+            console.error('Main image container not found');
+    }
+});
