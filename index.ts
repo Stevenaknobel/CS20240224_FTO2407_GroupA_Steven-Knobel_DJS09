@@ -8,7 +8,9 @@ const returningUserDisplay = document.querySelector('#returning-user')
 const userNameDisplay = document.querySelector('#user')
 const propertyContainer = document.querySelector('.properties')
 const footer = document.querySelector('.footer')
-
+const button = document.querySelector('button')
+const reviewContainer = document.querySelector('.reviews')
+const container = document.querySelector('.container')
 
 
 
@@ -45,7 +47,6 @@ const reviews: ({
         stars: 4,
         loyaltyUser: LoyaltyUser.SILVER_USER,
         date: '27-03-2021',
-        description: 'Great hosts, location was a bit further than said',
     },
 ]
 
@@ -172,5 +173,44 @@ for (let i = 0; i < properties.length; i++) {
     showDetails(you.permissions, card, properties[i].price)
 }
 
+//broken code challenge
+function getTopTwoReviews(reviews: {
+    name: string;
+    stars: number;
+    loyaltyUser: LoyaltyUser;
+    date: string;
+}[]) : {
+    name: string;
+    stars: number;
+    loyaltyUser: LoyaltyUser;
+    date: string;  
+}[]  {
+ const sortedReviews = reviews.sort((a, b) => b.stars - a.stars)
+ return sortedReviews.slice(0,2)
+}
+
+let count = 0
+function addReviews(array: {
+    name: string;
+    stars: number;
+    loyaltyUser: LoyaltyUser;
+    date: string;
+}[] ) : void {
+    if (!count ) {
+        count++
+        const topTwo = getTopTwoReviews(array)
+        for (let i = 0; i < topTwo.length; i++) {
+            const card = document.createElement('div')
+            card.classList.add('review-card')
+            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name
+            reviewContainer.appendChild(card)
+        }
+        container.removeChild(button) 
+    }
+}
+
+button.addEventListener('click', () => addReviews(reviews))
+
+//footer
 let currentLocation: [string, string, number] = ['South Africa', '11:35', 25]
 footer.innerHTML = currentLocation[0] + ' | ' + currentLocation[1] + ' | ' + currentLocation[2] + '°'
