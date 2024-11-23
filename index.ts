@@ -3,6 +3,8 @@
 // all TypeScript weakness flags.
 // : number
 import { Permissions, LoyaltyUser } from './enums'
+import { Review } from './interfaces'
+
 const reviewTotalDisplay = document.querySelector('#reviews')
 const returningUserDisplay = document.querySelector('#returning-user')
 const userNameDisplay = document.querySelector('#user')
@@ -17,19 +19,7 @@ const container = document.querySelector('.container')
 
 
 //reviews array
-const reviews: ({
-    name: string;
-    stars: number;
-    loyaltyUser: LoyaltyUser;
-    date: string;
-} |
-{
-    name: string;
-    stars: number;
-    loyaltyUser: LoyaltyUser;
-    date: string;
-    description: string;
-})[] = [
+const reviews: Review[] = [
     {
         name: 'Sheia',
         stars: 5,
@@ -174,17 +164,7 @@ for (let i = 0; i < properties.length; i++) {
 }
 
 //broken code challenge
-function getTopTwoReviews(reviews: {
-    name: string;
-    stars: number;
-    loyaltyUser: LoyaltyUser;
-    date: string;
-}[]) : {
-    name: string;
-    stars: number;
-    loyaltyUser: LoyaltyUser;
-    date: string;  
-}[]  {
+function getTopTwoReviews(reviews : Review[]) : Review[]  {
  const sortedReviews = reviews.sort((a, b) => b.stars - a.stars)
  return sortedReviews.slice(0,2)
 }
