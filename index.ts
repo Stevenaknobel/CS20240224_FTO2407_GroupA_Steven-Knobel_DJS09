@@ -10,19 +10,24 @@ const propertyContainer = document.querySelector('.properties')
 const footer = document.querySelector('.footer')
 
 
-let isOpen : boolean
-
 
 
 
 
 //reviews array
-const reviews: {
+const reviews: ({
     name: string;
     stars: number;
     loyaltyUser: LoyaltyUser;
     date: string;
-}[] = [
+} |
+{
+    name: string;
+    stars: number;
+    loyaltyUser: LoyaltyUser;
+    date: string;
+    description: string;
+})[] = [
     {
         name: 'Sheia',
         stars: 5,
@@ -39,7 +44,8 @@ const reviews: {
         name: 'Omar',
         stars: 4,
         loyaltyUser: LoyaltyUser.SILVER_USER,
-        date: '27-03-2021'
+        date: '27-03-2021',
+        description: 'Great hosts, location was a bit further than said',
     },
 ]
 //review function
@@ -130,6 +136,19 @@ function populateUser(isReturning : boolean, userName : string ) {
 
 populateUser(you.isReturning, you.firstName)
 
+let authorityStatus : any
+let isLoggedIn : boolean
+isLoggedIn = false
+
+function showDetails(authorityStatus: boolean | Permissions, element : HTMLDivElement, price: number) {
+   if (authorityStatus) {
+       const priceDisplay = document.createElement('div')
+       priceDisplay.innerHTML = price.toString() + '/night'
+       element.appendChild(priceDisplay)
+   }
+}
+
+
 //add the properties using a loop
 for (let i = 0; i < properties.length; i++) {
     const card = document.createElement('div')
@@ -139,7 +158,8 @@ for (let i = 0; i < properties.length; i++) {
     image.setAttribute('src', properties[i].image)
     card.appendChild(image)
     propertyContainer.appendChild(card)
+    showDetails(you.permissions, card, properties[i].price)
 }
 
 let currentLocation: [string, string, number] = ['South Africa', '11:35', 25]
-footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
+footer.innerHTML = currentLocation[0] + ' | ' + currentLocation[1] + ' | ' + currentLocation[2] + '°'
